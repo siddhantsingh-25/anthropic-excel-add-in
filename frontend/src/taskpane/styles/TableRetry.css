@@ -1,0 +1,106 @@
+/* TableRetry.css */
+.table-retry-container {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-retry-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.table-retry-grid {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+  .table-retry-grid-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  
+  /* .table-retry-grid {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+  } */
+  
+  .table-retry-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .table-retry-message-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .table-retry-message-input {
+    width: 100%;
+    max-width: 400px;
+    height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 10px;
+  }
+  
+  .table-retry-message-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .table-retry-message-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .table-retry-message-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .table-retry-message-count {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .table-retry-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .table-retry-button {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .table-retry-button:hover {
+    background-color: #0056b3;
+  }
