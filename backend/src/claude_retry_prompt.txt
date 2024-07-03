@@ -1,0 +1,6 @@
+Understand the update request message sent by the user. And send the updated OCR data accordingly.
+- Your output should consist only of a single JSON object, with no explanatory text or any content besides the JSON.
+- Based on the changes requested by User. Understand if the data needs to be updated or not. 
+- data types inside column data can only be a string or an Integer. 
+
+Retry Message by User: 

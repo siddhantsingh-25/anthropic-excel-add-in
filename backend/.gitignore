@@ -1,0 +1,15 @@
+.env
+.azure
+.pyc
+__pycache__/
+.coverage
+.devcontainer
+.github
+.vscode
+infra
+tests
+tutorial-env
+.pre-commit-config.yaml
+azure.yaml
+pyproject.toml
+README.md

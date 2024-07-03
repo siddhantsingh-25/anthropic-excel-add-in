@@ -1,0 +1,93 @@
+import contextlib
+import logging
+import os
+
+import azure.identity.aio
+import fastapi
+import openai
+import anthropic
+from environs import Env
+from fastapi.middleware.cors import CORSMiddleware
+from .globals import clients
+# from anthropic import AsyncAnthropic
+
+@contextlib.asynccontextmanager
+async def lifespan2(app: fastapi.FastAPI):
+    client_args = {}
+    client_args["api_key"] = os.getenv("ANTHROPIC_API_KEY")
+    clients["anthropic"] = anthropic.AsyncAnthropic(
+            **client_args,
+        )
+    yield
+    await clients["anthropic"].close()
+    
+@contextlib.asynccontextmanager
+async def lifespan(app: fastapi.FastAPI):
+    client_args = {}
+    # if os.getenv("LOCAL_OPENAI_ENDPOINT"):
+    #     # Use a local endpoint like llamafile server
+    #     client_args["api_key"] = "no-key-required"
+    #     client_args["base_url"] = os.getenv("LOCAL_OPENAI_ENDPOINT")
+    #     clients["openai"] = openai.AsyncOpenAI(
+    #         **client_args,
+    #     )
+    # else:
+    #     # Use an Azure OpenAI endpoint instead,
+    #     # either with a key or with keyless authentication
+    #     if os.getenv("AZURE_OPENAI_KEY"):
+    #         # Authenticate using an Azure OpenAI API key
+    #         # This is generally discouraged, but is provided for developers
+    #         # that want to develop locally inside the Docker container.
+    #         client_args["api_key"] = os.getenv("AZURE_OPENAI_KEY")
+    #     else:
+    #         if client_id := os.getenv("AZURE_OPENAI_CLIENT_ID"):
+    #             # Authenticate using a user-assigned managed identity on Azure
+    #             # See aca.bicep for value of AZURE_OPENAI_CLIENT_ID
+    #             default_credential = azure.identity.aio.ManagedIdentityCredential(client_id=client_id)
+    #         else:
+    #             # Authenticate using the default Azure credential chain
+    #             # See https://docs.microsoft.com/azure/developer/python/azure-sdk-authenticate#defaultazurecredential
+    #             # This will *not* work inside a Docker container.
+    #             default_credential = azure.identity.aio.DefaultAzureCredential(
+    #                 exclude_shared_token_cache_credential=True
+    #             )
+    #         client_args["azure_ad_token_provider"] = azure.identity.aio.get_bearer_token_provider(
+    #             default_credential, "https://cognitiveservices.azure.com/.default"
+    #         )
+    #     clients["openai"] = openai.AsyncAzureOpenAI(
+    #         api_version="2023-07-01-preview",
+    #         azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+    #         **client_args,
+    #     )
+
+    # yield
+
+    await clients["openai"].close()
+
+
+def create_app():
+    env = Env()
+
+    if not os.getenv("RUNNING_IN_PRODUCTION"):
+        env.read_env(".env")
+        logging.basicConfig(level=logging.DEBUG)
+
+    app = fastapi.FastAPI(docs_url="/", lifespan=lifespan2)
+
+    origins = env.list("ALLOWED_ORIGINS", ["https://addin.quickdata.ai", "http://localhost", "http://localhost:8080"])
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    from . import chat  # noqa
+    from . import image_events
+
+    app.include_router(chat.router)
+    app.include_router(image_events.router)
+
+    return app
