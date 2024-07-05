@@ -3,10 +3,11 @@
 const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 const webpack = require("webpack");
 
 const urlDev = "https://localhost:3000/";
-const urlProd = "https://addin.quickdata.ai/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
+const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
@@ -20,7 +21,10 @@ module.exports = async (env, options) => {
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       vendor: ["react", "react-dom", "core-js", "@fluentui/react-components", "@fluentui/react-icons"],
-      taskpane: ["./src/taskpane/index.tsx", "./src/taskpane/index.html"],
+      taskpane: ["./src/taskpane/index.tsx", "./src/taskpane/taskpane.html"],
+      tableIterationDialog: ["./src/TableIteration/Index.tsx", "./src/TableIteration/Index.html"],
+      AuthDialog: ["./src/Auth0/Auth.tsx", "./src/Auth0/Auth.html"],
+      RedirectPage: ["./src/RedirectPage/RedirectPage.html"],
       commands: "./src/commands/commands.ts",
     },
     output: {
@@ -52,15 +56,15 @@ module.exports = async (env, options) => {
           use: "html-loader",
         },
         {
-          test: /\.(png|jpg|jpeg|gif|ico)$/,
+          test: /\.css$/,
+          use: ["style-loader", "css-loader"],
+        },
+        {
+          test: /\.(png|jpg|jpeg|ttf|woff|woff2|gif|ico)$/,
           type: "asset/resource",
           generator: {
             filename: "assets/[name][ext][query]",
           },
-        },
-        {
-          test: /\.css$/,
-          use: ["style-loader", "css-loader"],
         },
       ],
     },
@@ -85,10 +89,29 @@ module.exports = async (env, options) => {
         ],
       }),
       new HtmlWebpackPlugin({
-        filename: "index.html",
-        template: "./src/taskpane/index.html",
+        filename: "taskpane.html",
+        template: "./src/taskpane/taskpane.html",
         chunks: ["polyfill", "vendor", "taskpane"],
       }),
+
+      new HtmlWebpackPlugin({
+        filename: "Index.html",
+        template: "./src/TableIteration/Index.html",
+        chunks: ["polyfill", "vendor", "tableIterationDialog"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "Auth.html",
+        template: "./src/Auth0/Auth.html",
+        chunks: ["polyfill", "vendor", "AuthDialog"],
+      }),
+
+      new HtmlWebpackPlugin({
+        filename: "RedirectPage.html",
+        template: "./src/RedirectPage/RedirectPage.html",
+        chunks: ["polyfill", "vendor", "RedirectPage"],
+      }),
+
+
       new HtmlWebpackPlugin({
         filename: "commands.html",
         template: "./src/commands/commands.html",
@@ -96,6 +119,10 @@ module.exports = async (env, options) => {
       }),
       new webpack.ProvidePlugin({
         Promise: ["es6-promise", "Promise"],
+      }),
+      new Dotenv(),
+      new webpack.EnvironmentPlugin({
+        MODE: options.mode,
       }),
     ],
     devServer: {

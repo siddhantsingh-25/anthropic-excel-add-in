@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Sign In Successfully!</h1>
+  </body>
+  <script>
+    Office.onReady(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get("code");
+
+      console.log("window.location:", window.location);
+
+      if (code !== null) {
+        console.log("code:", code);
+        Office.context.ui.messageParent(code);
+
+      } else {
+        console.log("code not found in the URL.");
+        // Handle the absence of the code here, such as displaying an error message or redirecting the user.
+        Office.context.ui.messageParent("Error: Authorization code not found.");
+      }
+    });
+  </script>
+</html>

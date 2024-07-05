@@ -1,0 +1,67 @@
+/* Login.css */
+.loaderOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  .spinner {
+    margin-top: 50px; /* Adjust this value to move the spinner down */
+  }
+  
+  .loadingText {
+    font-weight: bold;
+    color: black;
+    margin-top: 20px; /* Ensure some space between the spinner and the text */
+  }
+  
+  .loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Aligns content to the top */
+    height: 88vh;
+    text-align: center;
+    padding: 20px;
+    padding-top: 50px; /* Add space from the top */
+    position: relative;
+    overflow: hidden; /* Ensure no scrollbar */
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 3em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .description {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .versionText {
+    font-size: 0.8em;
+    color: #555;
+    position: absolute;
+    bottom: 15px; /* Adjust this value to move the version text up */
+  }
+  
+  .loginButton {
+    font-size: 1em;
+    padding: 10px 20px;
+  }
+  

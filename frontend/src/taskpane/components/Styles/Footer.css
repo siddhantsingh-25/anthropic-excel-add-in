@@ -1,0 +1,22 @@
+.footer_text{
+    font-weight: bold;
+}
+
+.footer{
+    width: 100vw;
+    background: dimgray;
+    height: 3.5vh;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.logout_icon{
+color: white !important;
+transform: rotate(180deg) !important;
+position: absolute !important;
+left: 0 !important;
+}

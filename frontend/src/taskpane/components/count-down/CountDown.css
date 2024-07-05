@@ -1,0 +1,6 @@
+.threedots{
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 33px !important;
+    margin-bottom: 33px !important;
+}
