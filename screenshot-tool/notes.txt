@@ -1,0 +1,42 @@
+Key: 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
+
+Spreadsheet Share Link: https://umich-my.sharepoint.com/:x:/g/personal/maxgorm_umich_edu/ESTrwSflBcVJrweZR5tf2EEBESzp6z-QGCGDenGXWIwYAw?e=jf3nS4
+
+npm run start:web -- --document "https://umich-my.sharepoint.com/:x:/g/personal/maxgorm_umich_edu/ESTrwSflBcVJrweZR5tf2EEBESzp6z-QGCGDenGXWIwYAw?e=jf3nS4"
+
+npm run start
+
+python -m PyInstaller newMain.spec
+
+
+
+-Ability to highlight
+-Add outline to finished screenshot for clarity
+
+-Remove tint over images
+-Make esc key work by prioritizing screenshot tool window
+-Verify the instance has been killed
+
+-add error message for API failure in end product
+-add error message for 401 unauthorized (user is not logged in)
+-fix highlight tool bugs
+  -add highlight tool functionality
+-autofocus product key window
+
+
+
+
+For Invoices
+
+IMB Wealth Technology
+120 Riverside Blvd, Suite 120 
+San Juan, PR 00901
+
+
+
+Signing command (run in cmd as administrator):
+
+(Change file at end when necessary)
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\signtool.exe" sign /fd SHA256 /n "IMB Wealth Technology" /t http://timestamp.digicert.com /v "C:\Users\maxgo\Downloads\CustomScreenshot\dist\newMain\newMain.exe"
+
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\signtool.exe" sign /fd SHA256 /n "IMB Wealth Technology" /t http://timestamp.digicert.com /v "C:\Users\maxgo\Downloads\CustomScreenshot\dist\Installer\QuickDataScreenshotToolSetup.exe"
